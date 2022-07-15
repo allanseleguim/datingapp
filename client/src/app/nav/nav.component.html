@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+
+        <a class="navbar-brand" href="#">Dating App</a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+
+
+        <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
+            <li class="nav-item ">
+                <a class="nav-link" href="#">Matches </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Listas</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link " href="#">Mensagens</a>
+            </li>
+        </ul>
+
+        <div class="btn-group" dropdown *ngIf="accountService.currentUser$ | async">
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
+                aria-controls="dropdown-basic">
+                <span class="text-white"> Seja bem vindo, <strong>{{model.username}}</strong> </span> <span
+                    class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu mt-3" role="menu" aria-labelledby="button-basic">
+
+                <li role="menuitem"><a class="dropdown-item" href="#">Editar Perfil</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#" (click)="logout()">Sair</a></li>
+
+            </ul>
+        </div>
+
+
+        <form class="form-inline my-2 my-lg-0" #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off"
+            *ngIf="(accountService.currentUser$ | async) === null ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Login" name="username"
+                [(ngModel)]="model.username">
+            <input class="form-control mr-sm-2" type="password" placeholder="Senha" name="password"
+                [(ngModel)]="model.password">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </form>
+
+
+    </div>
+
+</nav>
