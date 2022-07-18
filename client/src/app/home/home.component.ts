@@ -6,6 +6,8 @@ import {
   style,
   state,
 } from '@angular/animations';
+import { AccountService } from '../_services/account.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -43,12 +45,18 @@ import {
 })
 export class HomeComponent implements OnInit {
   registerMode: boolean = false;
+  users: any;
+  model: any = {};
 
-  constructor() {}
+  constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {}
 
   public registerToggler(evt) {
     this.registerMode = !this.registerMode;
+  }
+
+  public cancelRegisterMode(event: boolean) {
+    this.registerMode = event;
   }
 }

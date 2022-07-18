@@ -13,7 +13,8 @@
 <div class="container">
     <div class="row justify-content-center" *ngIf="registerMode" [@slideInOut]>
         <div class="col-4">
-            <p>Cadastre-se</p>
+            <app-register (cancelRegister)="cancelRegisterMode($event)">
+            </app-register>
         </div>
     </div>
 </div>

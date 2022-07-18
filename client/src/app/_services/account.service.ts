@@ -11,6 +11,7 @@ export class AccountService {
   baseUrl = 'https://localhost:5001/api/';
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
+  users: any;
 
   constructor(private http: HttpClient) {}
 
@@ -35,5 +36,16 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     console.log('clicado em logout', this.currentUserSource);
+  }
+
+  public register(model: any) {
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((user: User) => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    );
   }
 }
