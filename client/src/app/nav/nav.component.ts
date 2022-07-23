@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { TYPE } from '../_enums/sweet-warnings';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -14,17 +16,22 @@ export class NavComponent implements OnInit {
   model: any = {};
   loggedIn: boolean;
 
-  constructor(public accountService: AccountService) {}
+  constructor(
+    public accountService: AccountService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
   public login(typeIcon = TYPE.SUCCESS) {
     this.accountService.login(this.model).subscribe(
       (response) => {
-        console.log(response);
+        this.router.navigateByUrl('/members');
       },
       (error) => {
         console.log(error);
+        this.toastr.error(error.error);
       }
     );
   }
@@ -51,6 +58,8 @@ export class NavComponent implements OnInit {
         if (result.value) {
           console.log('Fez logout');
           this.accountService.logout();
+          // this.router.navigateByUrl('/');
+
           return;
         }
         console.log('Cancelout logout, continua logado');

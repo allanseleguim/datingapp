@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../_models/user';
@@ -13,7 +14,7 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
   users: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public login(model: any): Observable<void> {
     console.log('model', model);
@@ -36,6 +37,9 @@ export class AccountService {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
     console.log('clicado em logout', this.currentUserSource);
+    if (this.currentUserSource == null) {
+      // this.router.navigateByUrl('/');
+    }
   }
 
   public register(model: any) {
