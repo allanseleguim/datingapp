@@ -1,0 +1,19 @@
+<div class="container">
+    <h4 class="mt-4">500 - Internal Server Error. Entre em contato com o time de desenvolvimento/suporte. </h4>
+    <ng-container *ngIf="error">
+        <h5 class="text-danger">Erro: {{ error.message }} </h5>
+        <p class="font-weight bold">Se você está vendo isto, o Angular não é o culpado.</p>
+        <p>O que fazer agora?</p>
+        <ol>
+            <li>Abra seu navegador as ferramentas de desenvolvedor</li>
+            <li>Procure pela guia Network</li>
+            <li>Busque por requisisões mal sussedidas</li>
+            <li>Examine a URL solicitada, e verifique se está correta </li>
+            <li>Reproduza o erro no Insomnia / Postman </li>
+        </ol>
+
+        <p>Siga o stack trace</p>
+        <code class="mt-5" style="background:whitesmoke">{{error.details}}</code>
+
+    </ng-container>
+</div>
